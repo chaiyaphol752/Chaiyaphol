@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Chaiyaphol Pankampa — Native AI Developer building AI-powered websites, applications, n8n automations, agents and subagents."
+  />
+  <title>Chaiyaphol Pankampa — Native AI</title>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap");
+
+    :root {
+      --bg: #06070a;
+      --bg-soft: #0b0d12;
+      --card: rgba(255, 255, 255, 0.055);
+      --card-hover: rgba(255, 255, 255, 0.085);
+      --border: rgba(255, 255, 255, 0.1);
+      --text: #f7f7f8;
+      --muted: #9b9ca5;
+      --green: #bcff68;
+      --green-soft: rgba(188, 255, 104, 0.15);
+      --purple: #a48cff;
+      --cyan: #6ee7f9;
+      --radius: 28px;
+      --max-width: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-family: "Inter", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(164, 140, 255, 0.12), transparent 30%),
+        radial-gradient(circle at 85% 18%, rgba(188, 255, 104, 0.09), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(110, 231, 249, 0.06), transparent 35%),
+        var(--bg);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      opacity: 0.16;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: linear-gradient(to bottom, black, transparent 85%);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      width: 650px;
+      height: 650px;
+      left: 50%;
+      top: 180px;
+      z-index: -1;
+      pointer-events: none;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: rgba(188, 255, 104, 0.04);
+      filter: blur(120px);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max-width));
+      margin-inline: auto;
+    }
+
+    nav {
+      position: fixed;
+      z-index: 100;
+      top: 18px;
+      left: 50%;
+      width: min(calc(100% - 32px), 1140px);
+      transform: translateX(-50%);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(8, 9, 13, 0.7);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      box-shadow: 0 20px 80px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-inner {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px 0 22px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow:
+        0 0 15px rgba(188, 255, 104, 0.9),
+        0 0 35px rgba(188, 255, 104, 0.45);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+      color: #b6b6bd;
+      font-size: 0.86rem;
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      transition: 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-button,
+    .primary-button,
+    .secondary-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      border-radius: 999px;
+      transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .nav-button {
+      padding: 13px 19px;
+      color: #071003;
+      background: var(--green);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .nav-button:hover,
+    .primary-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(188, 255, 104, 0.22);
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 150px 0 80px;
+    }
+
+    .hero-content {
+      max-width: 1010px;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .eyebrow {
+      width: fit-content;
+      margin: 0 auto 30px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: #d4d4d7;
+      background: rgba(255,255,255,0.035);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 12px var(--green);
+    }
+
+    h1 {
+      max-width: 950px;
+      margin-inline: auto;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(3.9rem, 9vw, 8.7rem);
+      line-height: 0.89;
+      font-weight: 700;
+      letter-spacing: -0.075em;
+    }
+
+    .hero-name {
+      display: block;
+      color: var(--text);
+    }
+
+    .hero-ai {
+      display: block;
+      color: transparent;
+      background:
+        linear-gradient(
+          90deg,
+          var(--green),
+          #f4ffbc 38%,
+          var(--cyan) 70%,
+          var(--purple)
+        );
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .hero-description {
+      max-width: 680px;
+      margin: 35px auto 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 1.6vw, 1.17rem);
+      line-height: 1.8;
+    }
+
+    .hero-description strong {
+      color: #f0f0f2;
+      font-weight: 600;
+    }
+
+    .hero-buttons {
+      margin-top: 38px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .primary-button {
+      padding: 16px 24px;
+      color: #091003;
+      background: var(--green);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .secondary-button {
+      padding: 16px 24px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .secondary-button:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.07);
+    }
+
+    .scroll-text {
+      margin-top: 70px;
+      color: #62636b;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    section {
+      padding: 115px 0;
+    }
+
+    .section-header {
+      display: grid;
+      grid-template-columns: 0.85fr 1.5fr;
+      gap: 55px;
+      margin-bottom: 55px;
+    }
+
+    .section-kicker {
+      color: var(--green);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      max-width: 770px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      line-height: 1;
+      letter-spacing: -0.055em;
+    }
+
+    .muted {
+      color: #777982;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .about-card,
+    .service-card,
+    .stack-card,
+    .project-card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,0.06),
+          rgba(255,255,255,0.025)
+        );
+      transition:
+        transform 0.35s ease,
+        border-color 0.35s ease,
+        background 0.35s ease;
+    }
+
+    .about-card {
+      min-height: 330px;
+      padding: 38px;
+      border-radius: var(--radius);
+    }
+
+    .about-card:hover,
+    .service-card:hover,
+    .stack-card:hover,
+    .project-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(188, 255, 104, 0.28);
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,0.085),
+          rgba(255,255,255,0.03)
+        );
+    }
+
+    .about-card:first-child {
+      grid-row: span 2;
+      min-height: 680px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card-number {
+      color: #65666e;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 0.8rem;
+    }
+
+    .about-main-text {
+      max-width: 500px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(2rem, 4vw, 4.1rem);
+      line-height: 1.04;
+      letter-spacing: -0.055em;
+    }
+
+    .highlight {
+      color: var(--green);
+    }
+
+    .card-title {
+      margin-top: 70px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: -0.035em;
+    }
+
+    .card-text {
+      max-width: 500px;
+      margin-top: 15px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.75;
+    }
+
+    .ai-orb {
+      width: 170px;
+      height: 170px;
+      margin-top: 55px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(188,255,104,0.18);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 30%, #ecffd4, var(--green) 13%, #2e3d22 42%, #0b0d0a 68%);
+      box-shadow:
+        inset 0 0 45px rgba(255,255,255,0.13),
+        0 0 70px rgba(188,255,104,0.1);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .service-card {
+      min-height: 350px;
+      padding: 34px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-radius: var(--radius);
+    }
+
+    .service-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .service-icon {
+      width: 53px;
+      height: 53px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      color: var(--green);
+      background: rgba(255,255,255,0.04);
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 700;
+    }
+
+    .arrow {
+      color: #696a72;
+      font-size: 1.5rem;
+    }
+
+    .service-title {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(1.9rem, 3vw, 3rem);
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .service-description {
+      max-width: 480px;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 0.93rem;
+      line-height: 1.7;
+    }
+
+    .agents {
+      position: relative;
+    }
+
+    .agent-canvas {
+      min-height: 630px;
+      margin-top: 20px;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--border);
+      border-radius: 36px;
+      background:
+        radial-gradient(circle at center, rgba(188,255,104,0.08), transparent 27%),
+        rgba(255,255,255,0.025);
+    }
+
+    .agent-canvas::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.23;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    .agent-core {
+      position: relative;
+      z-index: 4;
+      width: 180px;
+      height: 180px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(188,255,104,0.3);
+      border-radius: 50%;
+      background: #0b1008;
+      box-shadow:
+        0 0 0 25px rgba(188,255,104,0.03),
+        0 0 0 55px rgba(188,255,104,0.018),
+        0 0 95px rgba(188,255,104,0.13);
+    }
+
+    .agent-core-inner {
+      text-align: center;
+    }
+
+    .agent-core strong {
+      display: block;
+      color: var(--green);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.35rem;
+      letter-spacing: -0.04em;
+    }
+
+    .agent-core span {
+      display: block;
+      margin-top: 6px;
+      color: #777a78;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .agent-node {
+      position: absolute;
+      z-index: 3;
+      min-width: 160px;
+      padding: 17px 19px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      background: rgba(12,14,18,0.92);
+      box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+    }
+
+    .agent-node strong {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 0.84rem;
+    }
+
+    .agent-node span {
+      display: block;
+      margin-top: 5px;
+      color: #65676e;
+      font-size: 0.68rem;
+    }
+
+    .node-1 { top: 90px; left: 12%; }
+    .node-2 { top: 115px; right: 10%; }
+    .node-3 { bottom: 90px; left: 15%; }
+    .node-4 { right: 13%; bottom: 80px; }
+
+    .line {
+      position: absolute;
+      z-index: 1;
+      width: 1px;
+      height: 250px;
+      left: 50%;
+      top: 50%;
+      transform-origin: top;
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(188,255,104,0.6),
+          rgba(255,255,255,0.05)
+        );
+    }
+
+    .line-1 { transform: rotate(42deg); }
+    .line-2 { transform: rotate(135deg); }
+    .line-3 { transform: rotate(222deg); }
+    .line-4 { transform: rotate(315deg); }
+
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .stack-card {
+      min-height: 180px;
+      padding: 27px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-radius: 22px;
+    }
+
+    .stack-card span {
+      color: #65666d;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 0.75rem;
+    }
+
+    .stack-card h3 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.35rem;
+      letter-spacing: -0.035em;
+    }
+
+    .featured-project {
+      margin-top: 15px;
+    }
+
+    .project-card {
+      min-height: 540px;
+      padding: 46px;
+      border-radius: 36px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 45px;
+      align-items: end;
+    }
+
+    .project-title {
+      max-width: 600px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(2.8rem, 6vw, 6rem);
+      line-height: 0.94;
+      letter-spacing: -0.065em;
+    }
+
+    .project-side {
+      max-width: 430px;
+      justify-self: end;
+    }
+
+    .project-side p {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+
+    .tag-list {
+      margin-top: 27px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      padding: 9px 13px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: #a9aab0;
+      background: rgba(255,255,255,0.035);
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+
+    .footer {
+      padding: 100px 0 35px;
+    }
+
+    .footer-card {
+      padding: 85px 40px;
+      border: 1px solid var(--border);
+      border-radius: 36px;
+      text-align: center;
+      background:
+        radial-gradient(circle at 50% 100%, rgba(188,255,104,0.1), transparent 40%),
+        rgba(255,255,255,0.025);
+    }
+
+    .footer-card h2 {
+      max-width: 850px;
+      margin-inline: auto;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(3rem, 7vw, 7rem);
+      line-height: 0.92;
+      letter-spacing: -0.07em;
+    }
+
+    .footer-card p {
+      max-width: 600px;
+      margin: 25px auto 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .footer-bottom {
+      margin-top: 70px;
+      padding-top: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      color: #65666d;
+      font-size: 0.78rem;
+    }
+
+    @media (max-width: 900px) {
+      .nav-links {
+        display: none;
+      }
+
+      .section-header,
+      .about-grid,
+      .project-card {
+        grid-template-columns: 1fr;
+      }
+
+      .about-card:first-child {
+        min-height: 500px;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stack-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .project-side {
+        justify-self: start;
+      }
+
+      .agent-canvas {
+        min-height: 700px;
+      }
+
+      .node-1 { top: 65px; left: 6%; }
+      .node-2 { top: 65px; right: 6%; }
+      .node-3 { bottom: 65px; left: 6%; }
+      .node-4 { bottom: 65px; right: 6%; }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        width: min(calc(100% - 24px), var(--max-width));
+      }
+
+      nav {
+        top: 10px;
+        width: calc(100% - 20px);
+      }
+
+      .nav-inner {
+        min-height: 60px;
+        padding-left: 16px;
+      }
+
+      .brand {
+        font-size: 0.8rem;
+      }
+
+      .nav-button {
+        padding: 11px 15px;
+        font-size: 0.72rem;
+      }
+
+      .hero {
+        padding-top: 130px;
+      }
+
+      h1 {
+        font-size: clamp(3.4rem, 18vw, 5.3rem);
+      }
+
+      section {
+        padding: 80px 0;
+      }
+
+      .about-card,
+      .service-card,
+      .project-card {
+        padding: 25px;
+      }
+
+      .stack-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .agent-canvas {
+        min-height: 730px;
+      }
+
+      .agent-node {
+        min-width: 135px;
+        padding: 14px;
+      }
+
+      .node-1 { top: 55px; left: 20px; }
+      .node-2 { top: 155px; right: 20px; }
+      .node-3 { bottom: 145px; left: 20px; }
+      .node-4 { bottom: 45px; right: 20px; }
+
+      .project-card {
+        min-height: 500px;
+      }
+
+      .footer-card {
+        padding: 65px 20px;
+      }
+
+      .footer-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="#home" class="brand">
+        <span class="brand-dot"></span>
+        Chaiyaphol Pankampa
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#capabilities">Capabilities</a></li>
+        <li><a href="#agents">Agents</a></li>
+        <li><a href="#stack">Stack</a></li>
+      </ul>
+
+      <a href="#contact" class="nav-button">
+        Build with me ↗
+      </a>
+    </div>
+  </nav>
+
+  <main>
+
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-content">
+
+          <div class="eyebrow">
+            <span class="status-dot"></span>
+            Native AI Developer
+          </div>
+
+          <h1>
+            <span class="hero-name">Chaiyaphol</span>
+            <span class="hero-ai">Pankampa.</span>
+          </h1>
+
+          <p class="hero-description">
+            I am <strong>Native AI</strong>. I use artificial intelligence to develop
+            world-class websites, applications, automation systems and intelligent
+            digital products.
+          </p>
+
+          <div class="hero-buttons">
+            <a href="#capabilities" class="primary-button">
+              Explore my work →
+            </a>
+
+            <a href="#about" class="secondary-button">
+              Who am I?
+            </a>
+          </div>
+
+          <div class="scroll-text">
+            AI × Code × Automation × Agents
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+
+        <div class="section-header">
+          <div class="section-kicker">01 / Who am I?</div>
+
+          <h2 class="section-title">
+            I don't just use AI.
+            <span class="muted">I build with it.</span>
+          </h2>
+        </div>
+
+        <div class="about-grid">
+
+          <article class="about-card">
+            <span class="card-number">Native AI / 001</span>
+
+            <div>
+              <div class="about-main-text">
+                I am a
+                <span class="highlight">Native AI</span>
+                builder creating products at the intersection of intelligence,
+                design and code.
+              </div>
+
+              <div class="ai-orb">NATIVE AI</div>
+            </div>
+          </article>
+
+          <article class="about-card">
+            <span class="card-number">AI Development / 002</span>
+
+            <div>
+              <h3 class="card-title">AI-powered development</h3>
+              <p class="card-text">
+                I use AI as a development partner to design, prototype and build
+                websites and applications faster while maintaining a high level
+                of product quality, usability and visual execution.
+              </p>
+            </div>
+          </article>
+
+          <article class="about-card">
+            <span class="card-number">Automation / 003</span>
+
+            <div>
+              <h3 class="card-title">Connected intelligence</h3>
+              <p class="card-text">
+                I connect applications, APIs, databases and AI models through
+                n8n to create intelligent automated systems that can execute
+                real business workflows.
+              </p>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section id="capabilities">
+      <div class="container">
+
+        <div class="section-header">
+          <div class="section-kicker">02 / Capabilities</div>
+
+          <h2 class="section-title">
+            From idea to
+            <span class="muted">intelligent product.</span>
+          </h2>
+        </div>
+
+        <div class="services-grid">
+
+          <article class="service-card">
+            <div class="service-top">
+              <div class="service-icon">01</div>
+              <div class="arrow">↗</div>
+            </div>
+
+            <div>
+              <h3 class="service-title">
+                World-Class<br />
+                Web Experiences
+              </h3>
+
+              <p class="service-description">
+                High-end websites built with modern interface design,
+                responsive systems, strong visual hierarchy and polished
+                interactions.
+              </p>
+            </div>
+          </article>
+
+          <article class="service-card">
+            <div class="service-top">
+              <div class="service-icon">02</div>
+              <div class="arrow">↗</div>
+            </div>
+
+            <div>
+              <h3 class="service-title">
+                AI<br />
+                Applications
+              </h3>
+
+              <p class="service-description">
+                Intelligent applications designed around AI models, APIs,
+                workflows, structured data and human-centered interfaces.
+              </p>
+            </div>
+          </article>
+
+          <article class="service-card">
+            <div class="service-top">
+              <div class="service-icon">03</div>
+              <div class="arrow">↗</div>
+            </div>
+
+            <div>
+              <h3 class="service-title">
+                n8n<br />
+                Automation
+              </h3>
+
+              <p class="service-description">
+                Automated systems that connect AI, APIs, databases and
+                business tools into reliable end-to-end workflows.
+              </p>
+            </div>
+          </article>
+
+          <article class="service-card">
+            <div class="service-top">
+              <div class="service-icon">04</div>
+              <div class="arrow">↗</div>
+            </div>
+
+            <div>
+              <h3 class="service-title">
+                Agentic<br />
+                Systems
+              </h3>
+
+              <p class="service-description">
+                Agents and specialized subagents designed to collaborate
+                within clear boundaries, tools, permissions and areas of
+                proficiency.
+              </p>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section class="agents" id="agents">
+      <div class="container">
+
+        <div class="section-header">
+          <div class="section-kicker">03 / Agent Systems</div>
+
+          <h2 class="section-title">
+            One agent.
+            <span class="muted">Many specialists.</span>
+          </h2>
+        </div>
+
+        <div class="agent-canvas">
+
+          <div class="line line-1"></div>
+          <div class="line line-2"></div>
+          <div class="line line-3"></div>
+          <div class="line line-4"></div>
+
+          <div class="agent-core">
+            <div class="agent-core-inner">
+              <strong>MAIN AGENT</strong>
+              <span>Orchestrator</span>
+            </div>
+          </div>
+
+          <div class="agent-node node-1">
+            <strong>Research Agent</strong>
+            <span>Search / Analyze / Verify</span>
+          </div>
+
+          <div class="agent-node node-2">
+            <strong>Developer Agent</strong>
+            <span>Build / Test / Ship</span>
+          </div>
+
+          <div class="agent-node node-3">
+            <strong>Automation Agent</strong>
+            <span>n8n / APIs / Workflows</span>
+          </div>
+
+          <div class="agent-node node-4">
+            <strong>Design Agent</strong>
+            <span>UI / UX / Experience</span>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section id="stack">
+      <div class="container">
+
+        <div class="section-header">
+          <div class="section-kicker">04 / Technology</div>
+
+          <h2 class="section-title">
+            My digital
+            <span class="muted">building blocks.</span>
+          </h2>
+        </div>
+
+        <div class="stack-grid">
+
+          <article class="stack-card">
+            <span>01</span>
+            <h3>Artificial Intelligence</h3>
+          </article>
+
+          <article class="stack-card">
+            <span>02</span>
+            <h3>HTML / CSS / JavaScript</h3>
+          </article>
+
+          <article class="stack-card">
+            <span>03</span>
+            <h3>n8n Automation</h3>
+          </article>
+
+          <article class="stack-card">
+            <span>04</span>
+            <h3>APIs & Webhooks</h3>
+          </article>
+
+          <article class="stack-card">
+            <span>05</span>
+            <h3>AI Agents</h3>
+          </article>
+
+          <article class="stack-card">
+            <span>06</span>
+            <h3>Subagent Systems</h3>
+          </article>
+
+          <article class="stack-card">
+            <span>07</span>
+            <h3>Web Applications</h3>
+          </article>
+
+          <article class="stack-card">
+            <span>08</span>
+            <h3>Vibe Coding</h3>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+
+        <div class="section-header">
+          <div class="section-kicker">05 / Philosophy</div>
+
+          <h2 class="section-title">
+            Building at the speed
+            <span class="muted">of intelligence.</span>
+          </h2>
+        </div>
+
+        <div class="featured-project">
+          <article class="project-card">
+
+            <div>
+              <h3 class="project-title">
+                Human vision.<br />
+                AI execution.
+              </h3>
+            </div>
+
+            <div class="project-side">
+              <p>
+                My approach combines human direction with AI-powered execution.
+                Every agent has a purpose. Every subagent has defined
+                boundaries. Every workflow is connected to the right tools.
+                The result is a system that can build, reason, automate and
+                operate with focused proficiency.
+              </p>
+
+              <div class="tag-list">
+                <span class="tag">AI Native</span>
+                <span class="tag">Agents</span>
+                <span class="tag">Subagents</span>
+                <span class="tag">n8n</span>
+                <span class="tag">Automation</span>
+                <span class="tag">Web Development</span>
+              </div>
+            </div>
+
+          </article>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" id="contact">
+    <div class="container">
+
+      <div class="footer-card">
+        <div class="section-kicker">Build the future</div>
+
+        <h2>
+          Let's create something
+          <span class="highlight">intelligent.</span>
+        </h2>
+
+        <p>
+          Websites. Applications. AI agents. Subagents. n8n automation.
+          Intelligent systems built for the next generation of the web.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="mailto:hello@example.com" class="primary-button">
+            Start a project ↗
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 Chaiyaphol Pankampa</span>
+        <span>Native AI Developer</span>
+      </div>
+
+    </div>
+  </footer>
+
+</body>
+</html>
